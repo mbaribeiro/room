@@ -16,12 +16,12 @@ class Graphs:
         for i in range(len(self.predInputs)):
             inTemp, inVel = self.predInputs[i]
             inTemp, inVel = round(inTemp), round(inVel)
-            with open(f'./room/data/predicteds/T{inTemp}V{inVel}.csv', 'w') as out_file:
+            with open(f'./data/predicteds/T{inTemp}V{inVel}.csv', 'w') as out_file:
                 out_file.write('i,j,k,temp,vel,count\n')
                 predicteds = '\n'.join([f"{a},{b},{c}" for a, b, c in zip(self.coord, self.predOutputs_Temp[i], self.predOutputs_Vel[i])]).replace('[', '').replace(']', '')
                 out_file.write(predicteds)
 
-                df = pd.read_csv(f'./room/data/testOutputs/T{inTemp}V{inVel}.csv', delimiter='\t')
+                df = pd.read_csv(f'./data/testOutputs/T{inTemp}V{inVel}.csv', delimiter='\t')
 
                 # remove the lines in the output file that have all zeros in both outputs
                 df = df[~np.all(df.iloc[:, 3:5] == 0, axis=1)]
@@ -148,7 +148,7 @@ class Graphs:
         for i in range(len(self.predInputs)):
             inTemp, inVel = self.predInputs[i]
             inTemp, inVel = round(inTemp), round(inVel)
-            output_file = f'./room/data/testOutputs/T{inTemp}V{inVel}.csv'
+            output_file = f'./data/testOutputs/T{inTemp}V{inVel}.csv'
             df = pd.read_csv(output_file, delimiter='\t')
 
             # Temperature

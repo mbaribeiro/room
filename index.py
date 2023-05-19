@@ -37,7 +37,7 @@ outputs2 = np.array(outputs2)[:, ~np.all(
 nn = nn()
 nn.inputs, nn.outputs1, nn.outputs2 = inputs, outputs1, outputs2
 modelTemp = nn.createModelTemp()
-modelVel = nn.createModelTemp()
+modelVel = nn.createModelVel()
 
 # Save the structure
 ss = ss()
