@@ -2,7 +2,6 @@ import numpy as np
 import tensorflow as tf
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.metrics import r2_score
 from math import *
 from utils.parameters import Parameters as prt
 from callbacks.printCallback import PrintEpochCallback as prtC

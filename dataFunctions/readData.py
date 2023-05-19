@@ -3,8 +3,8 @@ import pandas as pd
 
 class ReadData:
     def __init__(self):
-        self.pathInput = './room/data/inputs/inputs.csv'
-        self.pathInputsPred = './room/data/inputs/inputsPred.csv'
+        self.pathInput = './data/inputs/inputs.csv'
+        self.pathInputsPred = './data/inputs/inputsPred.csv'
 
     def readInput(self):  
         # Load input data
@@ -23,7 +23,7 @@ class ReadData:
     
     def trainData(self):
         # Load input data
-        with open('./room/data/inputs/inputs.csv', 'r') as f:
+        with open('./data/inputs/inputs.csv', 'r') as f:
             # Skip the header
             next(f)
             data1 = []
@@ -33,7 +33,7 @@ class ReadData:
                 inTemp, inVel = map(str, line.strip().split(','))
 
                 # Load output data
-                output_file = open(f'./room/data/outputs/T{inTemp}V{inVel}.csv', 'r')
+                output_file = open(f'./data/outputs/T{inTemp}V{inVel}.csv', 'r')
                 print("reading " + output_file.buffer.name + "...")
                 df = pd.read_csv(output_file, delimiter='\t')
                 coordenates = df.iloc[:, 0:3].values.tolist()
