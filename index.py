@@ -20,18 +20,22 @@ epoch_callback_vel = prtC(axs[1])
 
 # Separate Temperature and Velocity data
 data = rd().readInput()
-inputs = data[:, :3]
-inputs[:, 0] = inputs[:, 0] - 15  # Normalize Temperature
+_inputs = data[:, :3]
 
-outputs1, outputs2, coordenates = rd().trainData()
+_outputs1, _outputs2, coordenates = rd().trainData()
 
 # Remove the corresponding columns in coordinates that have all zeros in both outputs
 coordenates = np.array(coordenates)[~np.all(
-    np.array(outputs1, dtype=float) == 0, axis=0)]
-outputs1 = np.array(outputs1)[:, ~np.all(
-    np.array(outputs1, dtype=float) == 0, axis=0)].astype(float)
-outputs2 = np.array(outputs2)[:, ~np.all(
-    np.array(outputs2, dtype=float) == 0, axis=0)].astype(float)
+    np.array(_outputs1, dtype=float) == 0, axis=0)]
+_outputs1 = np.array(_outputs1)[:, ~np.all(
+    np.array(_outputs1, dtype=float) == 0, axis=0)].astype(float)
+_outputs2 = np.array(_outputs2)[:, ~np.all(
+    np.array(_outputs2, dtype=float) == 0, axis=0)].astype(float)
+
+# Normalize the inputs, outputs1 and outputs2 using min-max normalization
+inputs = (_inputs - _inputs.min(axis=0)) / (_inputs.max(axis=0) - _inputs.min(axis=0))
+outputs1 = (_outputs1 - _outputs1.min(axis=0)) / (_outputs1.max(axis=0) - _outputs1.min(axis=0))
+outputs2 = (_outputs2 - _outputs2.min(axis=0)) / (_outputs2.max(axis=0) - _outputs2.min(axis=0))
 
 # Create the model
 nn = nn()
@@ -56,16 +60,29 @@ modelVel.fit(inputs, outputs2, epochs=prt().epochs()[
 
 # Test the model
 predicted_inputs = rd().readInputsPred()
+
+# Normalize the inputs using min-max normalization
+predicted_inputs = (predicted_inputs - _inputs.min(axis=0)) / (_inputs.max(axis=0) - _inputs.min(axis=0))
 test_inputs = np.array(predicted_inputs)
-test_inputs[:, 0] = test_inputs[:, 0] - 15
 predicted_outputsTemp = modelTemp.predict(test_inputs)
 predicted_outputsVel = modelVel.predict(test_inputs)
 
+# Denormalize the outputs using min-max denormalization
+predicted_inputs = test_inputs * (_inputs.max(axis=0) - _inputs.min(axis=0)) + _inputs.min(axis=0)
+predicted_outputsTemp = predicted_outputsTemp * (_outputs1.max(axis=0) - _outputs1.min(axis=0)) + _outputs1.min(axis=0)
+predicted_outputsVel = predicted_outputsVel * (_outputs2.max(axis=0) - _outputs2.min(axis=0)) + _outputs2.min(axis=0)
+
+print("value1\n", ( _outputs1.max(axis=0) - _outputs1.min(axis=0)))
+print("value1\n", _outputs1.min(axis=0))
+print("value1\n",(_outputs2.max(axis=0) - _outputs2.min(axis=0)))
+print("value1\n", _outputs2.min(axis=0))
+
 gr = gr()
 gr.coord, gr.predInputs, gr.predOutputs_Temp, gr.predOutputs_Vel = coordenates, predicted_inputs, predicted_outputsTemp, predicted_outputsVel
-# gr.results()
+gr.results()
 gr.r2()
 
 sm = sm()
 sm.modelTemp, sm.modelVel = modelTemp, modelVel
 sm.saveModels()
+
