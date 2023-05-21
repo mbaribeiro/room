@@ -72,11 +72,6 @@ predicted_inputs = test_inputs * (_inputs.max(axis=0) - _inputs.min(axis=0)) + _
 predicted_outputsTemp = predicted_outputsTemp * (_outputs1.max(axis=0) - _outputs1.min(axis=0)) + _outputs1.min(axis=0)
 predicted_outputsVel = predicted_outputsVel * (_outputs2.max(axis=0) - _outputs2.min(axis=0)) + _outputs2.min(axis=0)
 
-print("value1\n", ( _outputs1.max(axis=0) - _outputs1.min(axis=0)))
-print("value1\n", _outputs1.min(axis=0))
-print("value1\n",(_outputs2.max(axis=0) - _outputs2.min(axis=0)))
-print("value1\n", _outputs2.min(axis=0))
-
 gr = gr()
 gr.coord, gr.predInputs, gr.predOutputs_Temp, gr.predOutputs_Vel = coordenates, predicted_inputs, predicted_outputsTemp, predicted_outputsVel
 gr.results()

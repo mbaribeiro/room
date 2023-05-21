@@ -5,12 +5,10 @@ class Parameters:
     def __init__(self):
         self.optiizer1 = tf.keras.optimizers.Adam(learning_rate=0.001)
         self.optiizer2 = tf.keras.optimizers.Adam(learning_rate=0.001)
-        self.v1 = None
-        self.v2 = None
         self.batch_sizeTemp = 2
         self.batch_sizeVel = 2
-        self.epochsTemp = 5000
-        self.epochsVel = 5000
+        self.epochsTemp = 100
+        self.epochsVel = 100
 
     def opt(self):
         return self.optiizer1, self.optiizer2
