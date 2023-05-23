@@ -12,7 +12,7 @@ from visualisation.graphs import Graphs as gr
 from utils.saveModels import saveModels as sm
 
 # Define the parameters of the optimizer
-optimizer1, optimizer2 = prt().opt()
+optimizer1, optimizer2 = prt().learning_rate()
 
 fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(10, 5))
 epoch_callback_temp = prtC(axs[0])
@@ -80,4 +80,3 @@ gr.r2()
 sm = sm()
 sm.modelTemp, sm.modelVel = modelTemp, modelVel
 sm.saveModels()
-

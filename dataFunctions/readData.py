@@ -5,6 +5,7 @@ class ReadData:
     def __init__(self):
         self.pathInput = './data/inputs/inputs.csv'
         self.pathInputsPred = './data/inputs/inputsPred.csv'
+        self.predInputs = None
 
     def readInput(self):  
         # Load input data
@@ -57,3 +58,29 @@ class ReadData:
             # Convert data to numpy array
             data = np.array(data)
         return data
+    
+    def readOutputsTemp(self):
+        c_array = []
+        for i in range(len(self.predInputs)):
+            inTemp, inVel = self.predInputs[i]
+            df = pd.read_csv(f'./data/testOutputs/T{round(inTemp)}V{round(inVel)}.csv', delimiter='\t')
+
+            # remove the lines in the output file that have all zeros in both outputs
+            df = df[~np.all(df.iloc[:, 3:5] == 0, axis=1)]
+            
+            c_array.append(df.iloc[:, 3].values.tolist())
+
+        return c_array
+    
+    def readOutputsVel(self):
+        c_array = []
+        for i in range(len(self.predInputs)):
+            inTemp, inVel = self.predInputs[i]
+            df = pd.read_csv(f'./data/testOutputs/T{round(inTemp)}V{round(inVel)}.csv', delimiter='\t')
+
+            # remove the lines in the output file that have all zeros in both outputs
+            df = df[~np.all(df.iloc[:, 3:5] == 0, axis=1)]
+            
+            c_array.append(df.iloc[:, 4].values.tolist())
+
+        return c_array

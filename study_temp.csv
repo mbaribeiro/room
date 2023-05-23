@@ -1,0 +1,3 @@
+,number,value,datetime_start,datetime_complete,duration,params_batch_size_temp,params_batch_size_vel,params_epochs_temp,params_epochs_vel,params_learning_rate,state
+0,0,0.0923847183585167,2023-05-21 15:10:18.474718,2023-05-21 17:28:15.151380,0 days 02:17:56.676662,3,3,4405,1215,0.011597099299631965,COMPLETE
+1,1,0.19062817096710205,2023-05-21 17:28:15.163797,2023-05-21 18:17:08.530649,0 days 00:48:53.366852,9,8,4390,931,0.03256014292253676,COMPLETE

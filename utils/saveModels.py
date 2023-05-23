@@ -5,6 +5,6 @@ class saveModels:
 
     def saveModels(self):
         # Save the models
-        self.modelTemp.save('room/modelsResults/modelTemp.h5')
-        self.modelVel.save('room/modelsResults/modelVel.h5')
+        self.modelTemp.save('/modelsResults/modelTemp.h5')
+        self.modelVel.save('/modelsResults/modelVel.h5')
 
